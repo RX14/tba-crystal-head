@@ -1,47 +1,73 @@
 module TBA::Head::Util
   def self.inspect_pretty(object)
-    inspect_str = object.inspect
-    out_str = String::Builder.new(inspect_str.size + 10)
+    str = object.inspect
+    out = String::Builder.new(str.size + 10)
 
     depth = 0
     is_string = false
-    inspect_str.each_char_with_index do |char, idx|
+    is_obj_start = false
+    is_hash = false
+    str.each_char_with_index do |char, idx|
+      if is_string && char != '"'
+        out << char
+        next
+      end
+
       case char
       when ','
-        out_str << ",\n"
-        out_str << "  " * depth
+        out << ",\n"
+        out << "  " * depth
+        next
       when ' '
-        unless inspect_str[idx - 1] == ','
-          out_str << ' '
-        end
+        next if str[idx - 1] == ','
       when '<'
-        if inspect_str[idx - 1] == '#'
+        if str[idx - 1] == '#'
+          is_obj_start = true
           depth += 1
         end
-        out_str << '<'
+      when '@'
+        if is_obj_start
+          is_obj_start = false
+          out << '\n'
+          out << "  " * depth
+        end
       when '>'
-        depth -= 1
-        out_str << '>'
+        unless is_hash
+          depth -= 1
+          unless is_obj_start
+            out << '\n'
+            out << "  " * depth
+          end
+          is_obj_start = false
+        end
       when '"'
-        is_string = !is_string unless inspect_str[idx - 1] == '\\'
-        out_str << '"'
+        is_string = !is_string unless str[idx - 1] == '\\'
       when '['
-        depth += 1
-        out_str << "[\n"
-        out_str << "  " * depth
+        unless str[idx + 1] == ']'
+          depth += 1
+          out << "[\n"
+          out << "  " * depth
+          next
+        end
       when ']'
-        depth -= 1
-        out_str << '\n'
-        out_str << "  " * depth
-        out_str << ']'
+        unless str[idx - 1] == '['
+          depth -= 1
+          out << '\n'
+          out << "  " * depth
+        end
+      when '{'
+        is_hash = true
+      when '}'
+        is_hash = false
       when '\n'
-        out_str << '\n'
-        out_str << "  " * depth
-      else
-        out_str << char
+        out << '\n'
+        out << "  " * depth
+        next
       end
+
+      out << char
     end
 
-    out_str.to_s
+    out.to_s
   end
 end
