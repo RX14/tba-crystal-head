@@ -1,4 +1,4 @@
-module TBA::Head::Util
+module Hydra::Head::Util
   def self.inspect_pretty(object)
     str = object.inspect
     out = String::Builder.new(str.size + 10)

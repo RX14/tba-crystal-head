@@ -1,7 +1,7 @@
-require "./src/tba/head/irc"
+require "./src/hydra/head/irc"
 
-server = TBA::Head::Server.create("esper")
-head = TBA::Head::Head.create(server)
-impl = TBA::Head::IRC.new(head, "irc.esper.net", "TBATest")
+server = Hydra::Head::Server.create("esper")
+head = Hydra::Head::Head.create(server)
+impl = Hydra::Head::IRC.new(head, "irc.esper.net", "HydraTest")
 
 sleep

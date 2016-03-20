@@ -1,6 +1,6 @@
 require "secure_random"
 
-class TBA::Head::Head
+class Hydra::Head::Head
   getter uuid : String
 
   property server : Server

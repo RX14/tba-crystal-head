@@ -1,6 +1,6 @@
 require "secure_random"
 
-class TBA::Head::Channel
+class Hydra::Head::Channel
   getter uuid : String
 
   property name : String

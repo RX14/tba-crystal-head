@@ -1,13 +1,11 @@
 require "secure_random"
 
-class TBA::Head::Server
+class Hydra::Head::Server
   getter uuid : String
 
   property name : String
-  getter channels : Array(Channel)
 
   def initialize(@uuid)
-    @channels = [] of Channel
     # TODO: get from core
     @name = ""
   end

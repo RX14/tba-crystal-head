@@ -1,6 +1,6 @@
 require "./spec_helper"
 
-describe TBA::Head::IRC do
+describe Hydra::Head::IRC do
   # TODO: Write tests
 
   it "works" do

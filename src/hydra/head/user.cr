@@ -1,6 +1,6 @@
 require "secure_random"
 
-class TBA::Head::User
+class Hydra::Head::User
   getter uuid : String
 
   property nickname : String

@@ -2,8 +2,8 @@ require "socket"
 require "fast_irc"
 require "./../*"
 
-class TBA::Head::IRC
-  def initialize(@head : TBA::Head::Head, @host : String, @nick : String, @port : Int = 6667)
+class Hydra::Head::IRC
+  def initialize(@head : Head, @host : String, @nick : String, @port : Int = 6667)
     @socket = TCPSocket.new(@host, @port, dns_timeout: 10.seconds, connect_timeout: 10)
 
     spawn do # reading fiber
@@ -19,7 +19,7 @@ class TBA::Head::IRC
     end
 
     send "NICK", [@nick]
-    send "USER", [@nick, "0", "*", "TBA Bot"]
+    send "USER", [@nick, "0", "*", "Hydra Bot"]
   end
 
   def handle_incoming(message)
