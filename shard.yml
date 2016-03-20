@@ -1,0 +1,17 @@
+name: tba-head
+version: 0.1.0
+
+authors:
+  - RX14 <chris@rx14.co.uk>
+
+dependencies:
+  fast_irc:
+    github: RX14/fast_irc.cr
+    version: 0.2.1
+
+development_dependencies:
+  power_assert:
+    github: Ragmaanir/power_assert.cr
+    branch: ahead
+
+license: MIT
